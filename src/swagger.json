@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Users API Documentation",
+    "description": "Users API Documentation with all specifications",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Matheus Ferreira"
+    }
+  }
+}
