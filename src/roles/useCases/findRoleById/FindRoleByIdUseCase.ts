@@ -2,14 +2,14 @@ import { Role } from "@roles/entities/Role";
 import { RolesRepository } from "@roles/repositories/RolesRepository";
 import { AppError } from "@shared/errors/AppError";
 
-type ShowRoleParams = {
+type FindRoleByIdParams = {
   id: string;
 };
 
-export class ShowRoleUseCase {
+export class FindRoleByIdUseCase {
   constructor(private rolesRepository: RolesRepository) {}
 
-  async execute({ id }: ShowRoleParams): Promise<Role> {
+  async execute({ id }: FindRoleByIdParams): Promise<Role> {
     const role = await this.rolesRepository.findById(id);
 
     if (!role) {

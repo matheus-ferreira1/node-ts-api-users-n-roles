@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { createRolesController } from "@roles/useCases/createRole";
 import { listRolesController } from "@roles/useCases/listRoles";
-import { showRolesController } from "@roles/useCases/showRole";
+import { findRoleByIdController } from "@roles/useCases/findRoleById";
 
 const rolesRouter = Router();
 
@@ -11,7 +11,7 @@ rolesRouter.get("/", (request, response) => {
 });
 
 rolesRouter.get("/:id", (request, response) => {
-  return showRolesController.handle(request, response);
+  return findRoleByIdController.handle(request, response);
 });
 
 rolesRouter.post("/", (request, response) => {
