@@ -1,13 +1,20 @@
 import { Router } from "express";
+import { container } from "tsyringe";
 import { celebrate, Joi, Segments } from "celebrate";
 
-import { createRolesController } from "@roles/useCases/createRole";
-import { listRolesController } from "@roles/useCases/listRoles";
-import { findRoleByIdController } from "@roles/useCases/findRoleById";
-import { updateRolesController } from "@roles/useCases/updateRole";
-import { deleteRolesController } from "@roles/useCases/deleteRole";
+import { CreateRoleController } from "@roles/useCases/createRole/CreateRoleController";
+import { ListRolesController } from "@roles/useCases/listRoles/ListRolesController";
+import { FindRoleByIdController } from "@roles/useCases/findRoleById/FindRoleByIdController";
+import { UpdateRoleController } from "@roles/useCases/updateRole/UpdateRoleController";
+import { DeleteRoleController } from "@roles/useCases/deleteRole/DeleteRoleController";
 
 const rolesRouter = Router();
+
+const createRolesController = container.resolve(CreateRoleController);
+const listRolesController = container.resolve(ListRolesController);
+const findRoleByIdController = container.resolve(FindRoleByIdController);
+const updateRolesController = container.resolve(UpdateRoleController);
+const deleteRolesController = container.resolve(DeleteRoleController);
 
 rolesRouter.get(
   "/",

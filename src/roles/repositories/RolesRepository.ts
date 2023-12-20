@@ -3,40 +3,34 @@ import { Repository } from "typeorm";
 import { dataSource } from "@shared/typeorm";
 
 import { Role } from "@roles/entities/Role";
+import {
+  CreateRoleDTO,
+  IRolesRepository,
+  PaginateParams,
+  RolesPaginateProperties,
+} from "./IRolesRepository";
 
-type CreateRoleDTO = {
-  name: string;
-};
-
-export type PaginateParams = {
-  page: number;
-  skip: number;
-  take: number;
-};
-
-export type RolesPaginateProperties = {
-  per_page: number;
-  total: number;
-  current_page: number;
-  data: Role[];
-};
-
-export class RolesRepository {
+export class RolesRepository implements IRolesRepository {
   private repository: Repository<Role>;
-  private static INSTANCE: RolesRepository;
 
-  private constructor() {
+  constructor() {
     this.repository = dataSource.getRepository(Role);
   }
 
   // Design pattern Singleton: Acima estou criando uma instância da classe RolesRepository (uma instancia dela mesma) e armazenando na variável estática INSTANCE. Colocando o construtor como private, eu garanto que não será possível criar uma instância da classe fora dela mesma. Para criar uma instância, eu preciso chamar o método getInstance(), que verifica se já existe uma instância da classe. Se já existir, ele retorna a instância já criada. Se não existir, ele cria uma nova instância e retorna.
 
-  public static getInstance(): RolesRepository {
-    if (!RolesRepository.INSTANCE) {
-      RolesRepository.INSTANCE = new RolesRepository();
-    }
-    return RolesRepository.INSTANCE;
-  }
+  // private static INSTANCE: RolesRepository;
+
+  // private constructor() {
+  //   this.repository = dataSource.getRepository(Role);
+  // }
+
+  // public static getInstance(): RolesRepository {
+  //   if (!RolesRepository.INSTANCE) {
+  //     RolesRepository.INSTANCE = new RolesRepository();
+  //   }
+  //   return RolesRepository.INSTANCE;
+  // }
 
   async create({ name }: CreateRoleDTO): Promise<Role> {
     const role = this.repository.create({ name });
