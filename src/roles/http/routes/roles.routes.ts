@@ -8,6 +8,8 @@ import { FindRoleByIdController } from "@roles/useCases/findRoleById/FindRoleByI
 import { UpdateRoleController } from "@roles/useCases/updateRole/UpdateRoleController";
 import { DeleteRoleController } from "@roles/useCases/deleteRole/DeleteRoleController";
 
+import { isAuthenticated } from "@shared/http/middlewares/isAuthenticated";
+
 const rolesRouter = Router();
 
 const createRolesController = container.resolve(CreateRoleController);
@@ -15,6 +17,8 @@ const listRolesController = container.resolve(ListRolesController);
 const findRoleByIdController = container.resolve(FindRoleByIdController);
 const updateRolesController = container.resolve(UpdateRoleController);
 const deleteRolesController = container.resolve(DeleteRoleController);
+
+rolesRouter.use(isAuthenticated);
 
 rolesRouter.get(
   "/",
