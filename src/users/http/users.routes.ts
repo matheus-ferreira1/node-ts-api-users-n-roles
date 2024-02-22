@@ -9,6 +9,7 @@ import { CreateUserController } from "@users/useCases/createUser/CreateUserContr
 import { ListUsersController } from "@users/useCases/listUsers/ListUsersController";
 import { CreateLoginController } from "@users/useCases/createLogin/CreateLoginController";
 import { UpdateAvatarController } from "@users/useCases/updateAvatar/UpdateAvatarController";
+import { ShowProfileController } from "@users/useCases/showProfile/ShowProfileController";
 
 import { isAuthenticated } from "@shared/http/middlewares/isAuthenticated";
 
@@ -18,6 +19,7 @@ const createUserController = container.resolve(CreateUserController);
 const listUsersController = container.resolve(ListUsersController);
 const createLoginController = container.resolve(CreateLoginController);
 const updateAvatarController = container.resolve(UpdateAvatarController);
+const showProfileController = container.resolve(ShowProfileController);
 
 const upload = multer(uploadConfig);
 
@@ -73,5 +75,9 @@ usersRouter.patch(
     return updateAvatarController.handle(request, response);
   },
 );
+
+usersRouter.get("/profile", isAuthenticated, (request, response) => {
+  return showProfileController.handle(request, response);
+});
 
 export { usersRouter };
